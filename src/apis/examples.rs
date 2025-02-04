@@ -28,7 +28,7 @@ pub async fn run_example() {
     let metadata = Some(json!({
         "domain": "example.com",
     }));
-    let cloned_credentials = credentials.clone();
+    // let cloned_credentials = credentials.clone();
 
     // Create the user request object
     let user_req_obj = UserReqObj {
@@ -41,10 +41,10 @@ pub async fn run_example() {
         profile_picture: Some("https://example.com/profile.jpg".to_string()),
         status: Some("enabled".to_string()),
     };
-    let token_request = IssueToken::new(
-        cloned_credentials.username.as_ref().unwrap_or(&"".to_string()).clone(),
-        cloned_credentials.secret.as_ref().unwrap_or(&"".to_string()).clone(),
-    );
+    // let token_request = IssueToken::new(
+    //     cloned_credentials.username.as_ref().unwrap_or(&"".to_string()).clone(),
+    //     cloned_credentials.secret.as_ref().unwrap_or(&"".to_string()).clone(),
+    // );
 
     // Call the `create_user` function
     match create_user(&config, user_req_obj).await {
@@ -58,7 +58,7 @@ pub async fn run_example() {
         }
     }
 
-    // //Obtain token
+    //Obtain token
     // match issue_token(&config, token_request).await {
     //     Ok(user) => {
     //         // Success: The user has been created, and `user` contains the response data

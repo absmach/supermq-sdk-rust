@@ -48,6 +48,162 @@ pub struct Channel {
     pub status: Option<String>,
 }
 
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ChannelUpdate {
+    /// Free-form channel name. Channel name is unique on the given hierarchy level.
+    #[serde(rename = "name")]
+    pub name: String,
+    /// Channel description, free form text.
+    #[serde(rename = "description")]
+    pub description: String,
+    /// Arbitrary, object-encoded channels's data.
+    #[serde(rename = "metadata")]
+    pub metadata: serde_json::Value,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ChannelUpdateTags {
+    /// Channel tags.
+    #[serde(rename = "tags")]
+    pub tags: Vec<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ChannelReqObj {
+    /// Free-form channel name. Channel name is unique on the given hierarchy level.
+    #[serde(rename = "name")]
+    pub name: String,
+    /// Channel description, free form text.
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// Id of parent channel, it must be existing channel.
+    #[serde(rename = "parent_id", skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    /// Arbitrary, object-encoded channels's data.
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<serde_json::Value>,
+    /// Channel Status
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ChannelConnectionReqSchema {
+    /// Client IDs
+    #[serde(rename = "client_ids", skip_serializing_if = "Option::is_none")]
+    pub client_ids: Option<Vec<serde_json::Value>>,
+    /// Connection types.
+    #[serde(rename = "types", skip_serializing_if = "Option::is_none")]
+    pub types: Option<Vec<serde_json::Value>>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ChannelsPage {
+    #[serde(rename = "channels")]
+    pub channels: Vec<crate::models::Channel>,
+    /// Total number of items.
+    #[serde(rename = "total")]
+    pub total: i32,
+    /// Number of items to skip during retrieval.
+    #[serde(rename = "offset")]
+    pub offset: i32,
+    /// Maximum number of items to return in one page.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ConnectionReqSchema {
+    /// Channel IDs.
+    #[serde(rename = "channel_ids", skip_serializing_if = "Option::is_none")]
+    pub channel_ids: Option<Vec<serde_json::Value>>,
+    /// Client IDs
+    #[serde(rename = "client_ids", skip_serializing_if = "Option::is_none")]
+    pub client_ids: Option<Vec<serde_json::Value>>,
+    /// Connection types.
+    #[serde(rename = "types", skip_serializing_if = "Option::is_none")]
+    pub types: Option<Vec<serde_json::Value>>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct IssueToken {
+    /// User identity - email address.
+    #[serde(rename = "identity")]
+    pub identity: String,
+    /// User secret password.
+    #[serde(rename = "secret")]
+    pub secret: String,
+}
+
+impl IssueToken {
+    pub fn new(identity: String, secret: String) -> IssueToken {
+        IssueToken {
+            identity,
+            secret,
+        }
+    }
+}
+
+impl ConnectionReqSchema {
+    pub fn new() -> ConnectionReqSchema {
+        ConnectionReqSchema {
+            channel_ids: None,
+            client_ids: None,
+            types: None,
+        }
+    }
+}
+
+impl ChannelsPage {
+    pub fn new(channels: Vec<crate::models::Channel>, total: i32, offset: i32) -> ChannelsPage {
+        ChannelsPage {
+            channels,
+            total,
+            offset,
+            limit: None,
+        }
+    }
+}
+
+impl ChannelConnectionReqSchema {
+    pub fn new() -> ChannelConnectionReqSchema {
+        ChannelConnectionReqSchema {
+            client_ids: None,
+            types: None,
+        }
+    }
+}
+
+impl ChannelReqObj {
+    pub fn new(name: String) -> ChannelReqObj {
+        ChannelReqObj {
+            name,
+            description: None,
+            parent_id: None,
+            metadata: None,
+            status: None,
+        }
+    }
+}
+
+impl ChannelUpdateTags {
+    pub fn new(tags: Vec<String>) -> ChannelUpdateTags {
+        ChannelUpdateTags {
+            tags,
+        }
+    }
+}
+
+impl ChannelUpdate {
+    pub fn new(name: String, description: String, metadata: serde_json::Value) -> ChannelUpdate {
+        ChannelUpdate {
+            name,
+            description,
+            metadata,
+        }
+    }
+}
+
 impl Channel {
     pub fn new() -> Channel {
         Channel {

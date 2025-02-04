@@ -185,7 +185,7 @@ pub async fn get_invitation(configuration: &configuration::Configuration, user_i
 }
 
 /// Retrieves a list of invitations. Due to performance concerns, data is retrieved in subsets. The API must ensure that the entire dataset is consumed either by making subsequent requests, or by increasing the subset size of the initial request. 
-pub async fn list_invitations(configuration: &configuration::Configuration, user_id: &str, domain_id: &str, limit: Option<i32>, offset: Option<i32>, invited_by: Option<&str>, relation: Option<&str>, state: Option<&str>) -> Result<crate::models::InvitationPage, Error<ListInvitationsError>> {
+pub async fn list_invitations(configuration: &configuration::Configuration, user_id: &str, limit: Option<i32>, offset: Option<i32>, invited_by: Option<&str>, relation: Option<&str>, state: Option<&str>) -> Result<crate::models::InvitationPage, Error<ListInvitationsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

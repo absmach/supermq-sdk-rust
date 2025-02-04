@@ -11,7 +11,9 @@
 
 
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+
+
+ #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Invitation {
     /// User unique identifier.
     #[serde(rename = "invited_by", skip_serializing_if = "Option::is_none")]
@@ -36,21 +38,44 @@ pub struct Invitation {
     pub confirmed_at: Option<String>,
 }
 
-impl Invitation {
-    pub fn new() -> Invitation {
-        Invitation {
-            invited_by: None,
-            user_id: None,
-            domain_id: None,
-            relation: None,
-            created_at: None,
-            updated_at: None,
-            confirmed_at: None,
-        }
-    }
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct InvitationPage {
+    #[serde(rename = "invitations")]
+    pub invitations: Vec<crate::models::Invitation>,
+    /// Total number of items.
+    #[serde(rename = "total")]
+    pub total: i32,
+    /// Number of items to skip during retrieval.
+    #[serde(rename = "offset")]
+    pub offset: i32,
+    /// Maximum number of items to return in one page.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
 }
 
-/// Relation between user and domain.
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct SendInvitationReqObj {
+    /// User unique identifier.
+    #[serde(rename = "user_id")]
+    pub user_id: uuid::Uuid,
+    /// Domain unique identifier.
+    #[serde(rename = "domain_id")]
+    pub domain_id: uuid::Uuid,
+    /// Relation between user and domain.
+    #[serde(rename = "relation")]
+    pub relation: Relation,
+    /// Resend invitation.
+    #[serde(rename = "resend", skip_serializing_if = "Option::is_none")]
+    pub resend: Option<bool>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct AcceptInvitationRequest {
+    /// Domain unique identifier.
+    #[serde(rename = "domain_id")]
+    pub domain_id: uuid::Uuid,
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Relation {
     #[serde(rename = "administrator")]
@@ -73,6 +98,50 @@ pub enum Relation {
     Group,
     #[serde(rename = "platform")]
     Platform,
+}
+
+impl AcceptInvitationRequest {
+    pub fn new(domain_id: uuid::Uuid) -> AcceptInvitationRequest {
+        AcceptInvitationRequest {
+            domain_id,
+        }
+    }
+}
+
+impl SendInvitationReqObj {
+    pub fn new(user_id: uuid::Uuid, domain_id: uuid::Uuid, relation: Relation) -> SendInvitationReqObj {
+        SendInvitationReqObj {
+            user_id,
+            domain_id,
+            relation,
+            resend: None,
+        }
+    }
+}
+
+impl InvitationPage {
+    pub fn new(invitations: Vec<crate::models::Invitation>, total: i32, offset: i32) -> InvitationPage {
+        InvitationPage {
+            invitations,
+            total,
+            offset,
+            limit: None,
+        }
+    }
+}
+
+impl Invitation {
+    pub fn new() -> Invitation {
+        Invitation {
+            invited_by: None,
+            user_id: None,
+            domain_id: None,
+            relation: None,
+            created_at: None,
+            updated_at: None,
+            confirmed_at: None,
+        }
+    }
 }
 
 impl Default for Relation {

@@ -27,6 +27,32 @@ pub struct Journal {
     pub metadata: Option<serde_json::Value>,
 }
 
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct JournalPage {
+    #[serde(rename = "journals")]
+    pub journals: Vec<crate::models::Journal>,
+    /// Total number of items.
+    #[serde(rename = "total")]
+    pub total: i32,
+    /// Number of items to skip during retrieval.
+    #[serde(rename = "offset")]
+    pub offset: i32,
+    /// Maximum number of items to return in one page.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+}
+
+impl JournalPage {
+    pub fn new(journals: Vec<crate::models::Journal>, total: i32, offset: i32) -> JournalPage {
+        JournalPage {
+            journals,
+            total,
+            offset,
+            limit: None,
+        }
+    }
+}
+
 impl Journal {
     pub fn new() -> Journal {
         Journal {

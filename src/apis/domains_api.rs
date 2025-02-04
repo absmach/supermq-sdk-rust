@@ -819,7 +819,7 @@ pub async fn get_domain_role(configuration: &configuration::Configuration, domai
 }
 
 /// Retrieves a list of available actions.  
-pub async fn list_available_domain_actions(configuration: &configuration::Configuration, domain_id: &str) -> Result<crate::models::AvailableActionsObj, Error<ListAvailableDomainActionsError>> {
+pub async fn list_available_domain_actions(configuration: &configuration::Configuration) -> Result<crate::models::AvailableActionsObj, Error<ListAvailableDomainActionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

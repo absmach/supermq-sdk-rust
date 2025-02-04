@@ -47,6 +47,349 @@ pub struct User {
     pub updated_at: Option<String>,
 }
 
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UserCredentials {
+    /// User's username for example john_doe for Mr John Doe.
+    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UserProfilePicture {
+    /// User's profile picture URL that is represented as a string.
+    #[serde(rename = "profile_picture")]
+    pub profile_picture: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UserReqObjCredentials {
+    /// User's username for example 'admin' will be used as its unique identifier.
+    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+    /// Free-form account secret used for acquiring auth token(s).
+    #[serde(rename = "secret", skip_serializing_if = "Option::is_none")]
+    pub secret: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UserReqObj {
+    /// User's first name.
+    #[serde(rename = "first_name", skip_serializing_if = "Option::is_none")]
+    pub first_name: Option<String>,
+    /// User's last name.
+    #[serde(rename = "last_name", skip_serializing_if = "Option::is_none")]
+    pub last_name: Option<String>,
+    /// User's email address will be used as its unique identifier.
+    #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
+    pub email: Option<String>,
+    /// User tags.
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+    #[serde(rename = "credentials")]
+    pub credentials: Box<crate::models::UserReqObjCredentials>,
+    /// Arbitrary, object-encoded user's data.
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<serde_json::Value>,
+    /// User's profile picture URL that is represented as a string.
+    #[serde(rename = "profile_picture", skip_serializing_if = "Option::is_none")]
+    pub profile_picture: Option<String>,
+    /// User Status
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UserRole {
+    /// User role example.
+    #[serde(rename = "role")]
+    pub role: RoleType,
+}
+
+/// User role example.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum RoleType {
+    #[serde(rename = "admin")]
+    Admin,
+    #[serde(rename = "user")]
+    User,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UserSecret {
+    /// Old user secret password.
+    #[serde(rename = "old_secret")]
+    pub old_secret: String,
+    /// New user secret password.
+    #[serde(rename = "new_secret")]
+    pub new_secret: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UserTags {
+    /// User tags.
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UserUpdate {
+    /// User's first name.
+    #[serde(rename = "first_name")]
+    pub first_name: String,
+    /// User's last name.
+    #[serde(rename = "last_name")]
+    pub last_name: String,
+    /// Arbitrary, object-encoded user's data.
+    #[serde(rename = "metadata")]
+    pub metadata: serde_json::Value,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct UsersPage {
+    #[serde(rename = "users")]
+    pub users: Vec<crate::models::User>,
+    /// Total number of items.
+    #[serde(rename = "total")]
+    pub total: i32,
+    /// Number of items to skip during retrieval.
+    #[serde(rename = "offset")]
+    pub offset: i32,
+    /// Maximum number of items to return in one page.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct AssignReqObj {
+    /// Members IDs
+    #[serde(rename = "members")]
+    pub members: Vec<String>,
+    /// Permission relations.
+    #[serde(rename = "relation")]
+    pub relation: String,
+    /// Member kind.
+    #[serde(rename = "member_kind")]
+    pub member_kind: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct Username {
+    /// User's username for example 'admin' will be used as its unique identifier.
+    #[serde(rename = "username")]
+    pub username: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct AssignUserReqObj {
+    /// User IDs
+    #[serde(rename = "user_ids")]
+    pub user_ids: Vec<String>,
+    /// Permission relations.
+    #[serde(rename = "relation")]
+    pub relation: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct Email {
+    /// User email address.
+    #[serde(rename = "email")]
+    pub email: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct IssueToken200Response {
+    /// User access token.
+    #[serde(rename = "access_token", skip_serializing_if = "Option::is_none")]
+    pub access_token: Option<String>,
+    /// User refresh token.
+    #[serde(rename = "refresh_token", skip_serializing_if = "Option::is_none")]
+    pub refresh_token: Option<String>,
+    /// User access token type.
+    #[serde(rename = "access_type", skip_serializing_if = "Option::is_none")]
+    pub access_type: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct RequestPasswordResetRequest {
+    /// User email.
+    #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
+    pub email: Option<String>,
+    /// Email host.
+    #[serde(rename = "host", skip_serializing_if = "Option::is_none")]
+    pub host: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ResetPasswordRequest {
+    /// New password.
+    #[serde(rename = "password", skip_serializing_if = "Option::is_none")]
+    pub password: Option<String>,
+    /// New confirmation password.
+    #[serde(rename = "confirm_password", skip_serializing_if = "Option::is_none")]
+    pub confirm_password: Option<String>,
+    /// Reset token generated and sent in email.
+    #[serde(rename = "token", skip_serializing_if = "Option::is_none")]
+    pub token: Option<String>,
+}
+
+impl ResetPasswordRequest {
+    pub fn new() -> ResetPasswordRequest {
+        ResetPasswordRequest {
+            password: None,
+            confirm_password: None,
+            token: None,
+        }
+    }
+}
+
+impl RequestPasswordResetRequest {
+    pub fn new() -> RequestPasswordResetRequest {
+        RequestPasswordResetRequest {
+            email: None,
+            host: None,
+        }
+    }
+}
+
+impl IssueToken200Response {
+    pub fn new() -> IssueToken200Response {
+        IssueToken200Response {
+            access_token: None,
+            refresh_token: None,
+            access_type: None,
+        }
+    }
+}
+
+impl Email {
+    pub fn new(email: String) -> Email {
+        Email {
+            email,
+        }
+    }
+}
+
+impl AssignUserReqObj {
+    pub fn new(user_ids: Vec<String>, relation: String) -> AssignUserReqObj {
+        AssignUserReqObj {
+            user_ids,
+            relation,
+        }
+    }
+}
+
+impl Username {
+    pub fn new(username: String) -> Username {
+        Username {
+            username,
+        }
+    }
+}
+
+impl AssignReqObj {
+    pub fn new(members: Vec<String>, relation: String, member_kind: String) -> AssignReqObj {
+        AssignReqObj {
+            members,
+            relation,
+            member_kind,
+        }
+    }
+}
+
+impl UsersPage {
+    pub fn new(users: Vec<crate::models::User>, total: i32, offset: i32) -> UsersPage {
+        UsersPage {
+            users,
+            total,
+            offset,
+            limit: None,
+        }
+    }
+}
+
+impl UserUpdate {
+    pub fn new(first_name: String, last_name: String, metadata: serde_json::Value) -> UserUpdate {
+        UserUpdate {
+            first_name,
+            last_name,
+            metadata,
+        }
+    }
+}
+
+impl UserTags {
+    pub fn new() -> UserTags {
+        UserTags {
+            tags: None,
+        }
+    }
+}
+
+impl UserSecret {
+    pub fn new(old_secret: String, new_secret: String) -> UserSecret {
+        UserSecret {
+            old_secret,
+            new_secret,
+        }
+    }
+}
+
+impl Default for RoleType {
+    fn default() -> RoleType {
+        Self::Admin
+    }
+}
+
+impl UserRole {
+    pub fn new(role: RoleType) -> UserRole {
+        UserRole {
+            role,
+        }
+    }
+}
+
+
+impl UserReqObj {
+    pub fn new(credentials: crate::models::UserReqObjCredentials) -> UserReqObj {
+        UserReqObj {
+            first_name: None,
+            last_name: None,
+            email: None,
+            tags: None,
+            credentials: Box::new(credentials),
+            metadata: None,
+            profile_picture: None,
+            status: None,
+        }
+    }
+}
+
+impl UserReqObjCredentials {
+    pub fn new() -> UserReqObjCredentials {
+        UserReqObjCredentials {
+            username: None,
+            secret: None,
+        }
+    }
+}
+
+impl UserProfilePicture {
+    pub fn new(profile_picture: String) -> UserProfilePicture {
+        UserProfilePicture {
+            profile_picture,
+        }
+    }
+}
+
+
+impl UserCredentials {
+    pub fn new() -> UserCredentials {
+        UserCredentials {
+            username: None,
+        }
+    }
+}
+
 impl User {
     pub fn new() -> User {
         User {

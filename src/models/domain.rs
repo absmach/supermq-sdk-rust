@@ -45,6 +45,86 @@ pub struct Domain {
     pub updated_at: Option<String>,
 }
 
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct DomainReqObj {
+    /// Domain name.
+    #[serde(rename = "name")]
+    pub name: String,
+    /// domain tags.
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+    /// Arbitrary, object-encoded domain's data.
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<serde_json::Value>,
+    /// Domain alias.
+    #[serde(rename = "alias")]
+    pub alias: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct DomainUpdate {
+    /// Domain name.
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    /// domain tags.
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+    /// Arbitrary, object-encoded domain's data.
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<serde_json::Value>,
+    /// Domain alias.
+    #[serde(rename = "alias", skip_serializing_if = "Option::is_none")]
+    pub alias: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct DomainsPage {
+    #[serde(rename = "domains")]
+    pub domains: Vec<crate::models::Domain>,
+    /// Total number of items.
+    #[serde(rename = "total")]
+    pub total: i32,
+    /// Number of items to skip during retrieval.
+    #[serde(rename = "offset")]
+    pub offset: i32,
+    /// Maximum number of items to return in one page.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+}
+
+impl DomainsPage {
+    pub fn new(domains: Vec<crate::models::Domain>, total: i32, offset: i32) -> DomainsPage {
+        DomainsPage {
+            domains,
+            total,
+            offset,
+            limit: None,
+        }
+    }
+}
+
+impl DomainUpdate {
+    pub fn new() -> DomainUpdate {
+        DomainUpdate {
+            name: None,
+            tags: None,
+            metadata: None,
+            alias: None,
+        }
+    }
+}
+
+impl DomainReqObj {
+    pub fn new(name: String, alias: String) -> DomainReqObj {
+        DomainReqObj {
+            name,
+            tags: None,
+            metadata: None,
+            alias,
+        }
+    }
+}
+
 impl Domain {
     pub fn new() -> Domain {
         Domain {

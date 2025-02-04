@@ -41,6 +41,214 @@ pub struct Client {
     pub updated_at: Option<String>,
 }
 
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientWithEmptySecret {
+    /// Client unique identifier.
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<uuid::Uuid>,
+    /// Client name.
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    /// Client tags.
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+    /// ID of the domain to which client belongs.
+    #[serde(rename = "domain_id", skip_serializing_if = "Option::is_none")]
+    pub domain_id: Option<uuid::Uuid>,
+    #[serde(rename = "credentials", skip_serializing_if = "Option::is_none")]
+    pub credentials: Option<Box<crate::models::ClientWithEmptySecretCredentials>>,
+    /// Arbitrary, object-encoded client's data.
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<serde_json::Value>,
+    /// Client Status
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
+    /// Time when the channel was created.
+    #[serde(rename = "created_at", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<String>,
+    /// Time when the channel was created.
+    #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientWithEmptySecretCredentials {
+    /// Client Identity for example email address.
+    #[serde(rename = "identity", skip_serializing_if = "Option::is_none")]
+    pub identity: Option<String>,
+    /// Client secret password.
+    #[serde(rename = "secret", skip_serializing_if = "Option::is_none")]
+    pub secret: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientUpdate {
+    /// Client name.
+    #[serde(rename = "name")]
+    pub name: String,
+    /// Arbitrary, object-encoded client's data.
+    #[serde(rename = "metadata")]
+    pub metadata: serde_json::Value,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientTags {
+    /// Client tags.
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientSecret {
+    /// New client secret.
+    #[serde(rename = "secret")]
+    pub secret: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientReqObj {
+    /// Client name.
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    /// Client tags.
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+    #[serde(rename = "credentials")]
+    pub credentials: Box<crate::models::ClientReqObjCredentials>,
+    /// Arbitrary, object-encoded client's data.
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<serde_json::Value>,
+    /// Client Status
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientReqObjCredentials {
+    /// Client's identity will be used as its unique identifier
+    #[serde(rename = "identity", skip_serializing_if = "Option::is_none")]
+    pub identity: Option<String>,
+    /// Free-form account secret used for acquiring auth token(s).
+    #[serde(rename = "secret", skip_serializing_if = "Option::is_none")]
+    pub secret: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientCredentials {
+    /// Client Identity for example email address.
+    #[serde(rename = "identity", skip_serializing_if = "Option::is_none")]
+    pub identity: Option<String>,
+    /// Client secret password.
+    #[serde(rename = "secret", skip_serializing_if = "Option::is_none")]
+    pub secret: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ClientsPage {
+    #[serde(rename = "clients")]
+    pub clients: Vec<crate::models::ClientWithEmptySecret>,
+    /// Total number of items.
+    #[serde(rename = "total")]
+    pub total: i32,
+    /// Number of items to skip during retrieval.
+    #[serde(rename = "offset")]
+    pub offset: i32,
+    /// Maximum number of items to return in one page.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+}
+
+impl ClientsPage {
+    pub fn new(clients: Vec<crate::models::ClientWithEmptySecret>, total: i32, offset: i32) -> ClientsPage {
+        ClientsPage {
+            clients,
+            total,
+            offset,
+            limit: None,
+        }
+    }
+}
+
+impl ClientCredentials {
+    pub fn new() -> ClientCredentials {
+        ClientCredentials {
+            identity: None,
+            secret: None,
+        }
+    }
+}
+
+impl ClientReqObjCredentials {
+    pub fn new() -> ClientReqObjCredentials {
+        ClientReqObjCredentials {
+            identity: None,
+            secret: None,
+        }
+    }
+}
+
+impl ClientReqObj {
+    pub fn new(credentials: crate::models::ClientReqObjCredentials) -> ClientReqObj {
+        ClientReqObj {
+            name: None,
+            tags: None,
+            credentials: Box::new(credentials),
+            metadata: None,
+            status: None,
+        }
+    }
+}
+
+impl ClientSecret {
+    pub fn new(secret: String) -> ClientSecret {
+        ClientSecret {
+            secret,
+        }
+    }
+}
+
+impl ClientTags {
+    pub fn new() -> ClientTags {
+        ClientTags {
+            tags: None,
+        }
+    }
+}
+
+impl ClientUpdate {
+    pub fn new(name: String, metadata: serde_json::Value) -> ClientUpdate {
+        ClientUpdate {
+            name,
+            metadata,
+        }
+    }
+}
+
+impl ClientWithEmptySecretCredentials {
+    pub fn new() -> ClientWithEmptySecretCredentials {
+        ClientWithEmptySecretCredentials {
+            identity: None,
+            secret: None,
+        }
+    }
+}
+
+impl ClientWithEmptySecret {
+    pub fn new() -> ClientWithEmptySecret {
+        ClientWithEmptySecret {
+            id: None,
+            name: None,
+            tags: None,
+            domain_id: None,
+            credentials: None,
+            metadata: None,
+            status: None,
+            created_at: None,
+            updated_at: None,
+        }
+    }
+}
+
 impl Client {
     pub fn new() -> Client {
         Client {

@@ -928,7 +928,7 @@ pub async fn reset_password(configuration: &configuration::Configuration, reset_
 }
 
 /// Search users by name and identity. 
-pub async fn search_users(configuration: &configuration::Configuration, user_id: &str, limit: Option<i32>, offset: Option<i32>, username: Option<&str>, first_name: Option<&str>, last_name: Option<&str>, email: Option<&str>) -> Result<crate::models::UsersPage, Error<SearchUsersError>> {
+pub async fn search_users(configuration: &configuration::Configuration, limit: Option<i32>, offset: Option<i32>, username: Option<&str>, first_name: Option<&str>, last_name: Option<&str>, email: Option<&str>) -> Result<crate::models::UsersPage, Error<SearchUsersError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

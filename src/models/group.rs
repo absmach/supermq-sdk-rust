@@ -48,6 +48,139 @@ pub struct Group {
     pub status: Option<String>,
 }
 
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct GroupReqObj {
+    /// Free-form group name. Group name is unique on the given hierarchy level.
+    #[serde(rename = "name")]
+    pub name: String,
+    /// Group description, free form text.
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// Id of parent group, it must be existing group.
+    #[serde(rename = "parent_id", skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    /// Arbitrary, object-encoded groups's data.
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<serde_json::Value>,
+    /// Group Status
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct GroupUpdate {
+    /// Free-form group name. Group name is unique on the given hierarchy level.
+    #[serde(rename = "name")]
+    pub name: String,
+    /// Group description, free form text.
+    #[serde(rename = "description")]
+    pub description: String,
+    /// Arbitrary, object-encoded groups's data.
+    #[serde(rename = "metadata")]
+    pub metadata: serde_json::Value,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct GroupsHierarchyPage {
+    /// Level of hierarchy.
+    #[serde(rename = "level", skip_serializing_if = "Option::is_none")]
+    pub level: Option<i32>,
+    /// Direction of hierarchy traversal.
+    #[serde(rename = "direction", skip_serializing_if = "Option::is_none")]
+    pub direction: Option<i32>,
+    #[serde(rename = "groups", skip_serializing_if = "Option::is_none")]
+    pub groups: Option<Vec<crate::models::Group>>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct GroupsPage {
+    #[serde(rename = "groups")]
+    pub groups: Vec<crate::models::Group>,
+    /// Total number of items.
+    #[serde(rename = "total")]
+    pub total: i32,
+    /// Number of items to skip during retrieval.
+    #[serde(rename = "offset")]
+    pub offset: i32,
+    /// Maximum number of items to return in one page.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ParentGroupReqObj2 {
+    /// Parent group unique identifier.
+    #[serde(rename = "group_id")]
+    pub group_id: uuid::Uuid,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct ChildrenGroupReqObj {
+    /// Children group IDs.
+    #[serde(rename = "groups")]
+    pub groups: Vec<uuid::Uuid>,
+}
+
+impl ChildrenGroupReqObj {
+    pub fn new(groups: Vec<uuid::Uuid>) -> ChildrenGroupReqObj {
+        ChildrenGroupReqObj {
+            groups,
+        }
+    }
+}
+
+impl ParentGroupReqObj2 {
+    pub fn new(group_id: uuid::Uuid) -> ParentGroupReqObj2 {
+        ParentGroupReqObj2 {
+            group_id,
+        }
+    }
+}
+
+impl GroupsPage {
+    pub fn new(groups: Vec<crate::models::Group>, total: i32, offset: i32) -> GroupsPage {
+        GroupsPage {
+            groups,
+            total,
+            offset,
+            limit: None,
+        }
+    }
+}
+
+impl GroupsHierarchyPage {
+    pub fn new() -> GroupsHierarchyPage {
+        GroupsHierarchyPage {
+            level: None,
+            direction: None,
+            groups: None,
+        }
+    }
+}
+
+
+impl GroupUpdate {
+    pub fn new(name: String, description: String, metadata: serde_json::Value) -> GroupUpdate {
+        GroupUpdate {
+            name,
+            description,
+            metadata,
+        }
+    }
+}
+
+impl GroupReqObj {
+    pub fn new(name: String) -> GroupReqObj {
+        GroupReqObj {
+            name,
+            description: None,
+            parent_id: None,
+            metadata: None,
+            status: None,
+        }
+    }
+}
+
 impl Group {
     pub fn new() -> Group {
         Group {

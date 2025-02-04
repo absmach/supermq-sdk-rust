@@ -12,6 +12,7 @@
 
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+//notifiers
 pub struct Subscription {
     /// ULID id of the subscription.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -27,6 +28,24 @@ pub struct Subscription {
     pub contact: Option<String>,
 }
 
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct CreateSubscription {
+    /// Topic to which the user subscribes.
+    #[serde(rename = "topic", skip_serializing_if = "Option::is_none")]
+    pub topic: Option<String>,
+    /// The contact of the user to which the notification will be sent.
+    #[serde(rename = "contact", skip_serializing_if = "Option::is_none")]
+    pub contact: Option<String>,
+}
+
+impl CreateSubscription {
+    pub fn new() -> CreateSubscription {
+        CreateSubscription {
+            topic: None,
+            contact: None,
+        }
+    }
+}
 impl Subscription {
     pub fn new() -> Subscription {
         Subscription {

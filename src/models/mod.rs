@@ -1,192 +1,144 @@
-pub mod accept_invitation_request;
-pub use self::accept_invitation_request::AcceptInvitationRequest;
-pub mod assign_req_obj;
-pub use self::assign_req_obj::AssignReqObj;
-pub mod assign_user_req_obj;
-pub use self::assign_user_req_obj::AssignUserReqObj;
-pub mod attribute;
-pub use self::attribute::Attribute;
-pub mod available_actions_obj;
-pub use self::available_actions_obj::AvailableActionsObj;
 pub mod cert;
-pub use self::cert::Cert;
-pub mod certs_page;
-pub use self::certs_page::CertsPage;
+pub use self::cert::{
+    Cert,
+    CertsPage,
+    CreateCertRequest,
+    Revoke
+};
+
 pub mod channel;
-pub use self::channel::Channel;
-pub mod channel_connection_req_schema;
-pub use self::channel_connection_req_schema::ChannelConnectionReqSchema;
-pub mod channel_req_obj;
-pub use self::channel_req_obj::ChannelReqObj;
-pub mod channel_update;
-pub use self::channel_update::ChannelUpdate;
-pub mod channel_update_tags;
-pub use self::channel_update_tags::ChannelUpdateTags;
-pub mod channels_page;
-pub use self::channels_page::ChannelsPage;
-pub mod children_group_req_obj;
-pub use self::children_group_req_obj::ChildrenGroupReqObj;
+pub use self::channel::{
+    Channel,
+    ChannelUpdate,
+    ChannelUpdateTags,
+    ChannelReqObj,
+    ChannelConnectionReqSchema,
+    ChannelsPage,
+    ConnectionReqSchema,
+    IssueToken
+};
+
 pub mod client;
-pub use self::client::Client;
-pub mod client_credentials;
-pub use self::client_credentials::ClientCredentials;
-pub mod client_req_obj;
-pub use self::client_req_obj::ClientReqObj;
-pub mod client_req_obj_credentials;
-pub use self::client_req_obj_credentials::ClientReqObjCredentials;
-pub mod client_secret;
-pub use self::client_secret::ClientSecret;
-pub mod client_tags;
-pub use self::client_tags::ClientTags;
-pub mod client_update;
-pub use self::client_update::ClientUpdate;
-pub mod client_with_empty_secret;
-pub use self::client_with_empty_secret::ClientWithEmptySecret;
-pub mod client_with_empty_secret_credentials;
-pub use self::client_with_empty_secret_credentials::ClientWithEmptySecretCredentials;
-pub mod clients_page;
-pub use self::clients_page::ClientsPage;
-pub mod config_channels_inner;
-pub use self::config_channels_inner::ConfigChannelsInner;
-pub mod connection_req_schema;
-pub use self::connection_req_schema::ConnectionReqSchema;
-pub mod create_cert_request;
-pub use self::create_cert_request::CreateCertRequest;
-pub mod create_config_request;
-pub use self::create_config_request::CreateConfigRequest;
-pub mod create_role_obj;
-pub use self::create_role_obj::CreateRoleObj;
-pub mod create_subscription;
-pub use self::create_subscription::CreateSubscription;
-pub mod definition;
-pub use self::definition::Definition;
+pub use self::client::{
+    Client,
+    ClientWithEmptySecret,
+    ClientWithEmptySecretCredentials,
+    ClientUpdate,
+    ClientTags,
+    ClientSecret,
+    ClientReqObj,
+    ClientReqObjCredentials,
+    ClientCredentials,
+    ClientsPage
+};
+
 pub mod domain;
-pub use self::domain::Domain;
-pub mod __domain_id__mapping_post_request;
-pub use self::__domain_id__mapping_post_request::DomainIdMappingPostRequest;
-pub mod domain_req_obj;
-pub use self::domain_req_obj::DomainReqObj;
-pub mod domain_update;
-pub use self::domain_update::DomainUpdate;
-pub mod domains_page;
-pub use self::domains_page::DomainsPage;
-pub mod email;
-pub use self::email::Email;
-pub mod error;
-pub use self::error::Error;
+pub use self::domain::{
+    Domain,
+    DomainReqObj,
+    DomainUpdate,
+    DomainsPage
+};
+
 pub mod group;
-pub use self::group::Group;
-pub mod group_req_obj;
-pub use self::group_req_obj::GroupReqObj;
-pub mod group_update;
-pub use self::group_update::GroupUpdate;
-pub mod groups_hierarchy_page;
-pub use self::groups_hierarchy_page::GroupsHierarchyPage;
-pub mod groups_page;
-pub use self::groups_page::GroupsPage;
-pub mod health_info;
-pub use self::health_info::HealthInfo;
-pub mod health_res;
-pub use self::health_res::HealthRes;
+pub use self::group::{
+    Group,
+    GroupReqObj,
+    GroupUpdate,
+    GroupsHierarchyPage,
+    GroupsPage,
+    ParentGroupReqObj2,
+    ChildrenGroupReqObj
+};
+
 pub mod invitation;
-pub use self::invitation::Invitation;
-pub mod invitation_page;
-pub use self::invitation_page::InvitationPage;
-pub mod issue_key_request;
-pub use self::issue_key_request::IssueKeyRequest;
-pub mod issue_token;
-pub use self::issue_token::IssueToken;
-pub mod issue_token_200_response;
-pub use self::issue_token_200_response::IssueToken200Response;
+pub use self::invitation::{
+    Invitation,
+    InvitationPage,
+    SendInvitationReqObj,
+    AcceptInvitationRequest,
+    Relation
+};
+
 pub mod journal;
-pub use self::journal::Journal;
-pub mod journal_page;
-pub use self::journal_page::JournalPage;
-pub mod key;
-pub use self::key::Key;
-pub mod members;
-pub use self::members::Members;
-pub mod members_credentials;
-pub use self::members_credentials::MembersCredentials;
-pub mod members_page;
-pub use self::members_page::MembersPage;
-pub mod messages_page;
-pub use self::messages_page::MessagesPage;
-pub mod messages_page_messages_inner;
-pub use self::messages_page_messages_inner::MessagesPageMessagesInner;
-pub mod new_role;
-pub use self::new_role::NewRole;
-pub mod page;
-pub use self::page::Page;
-pub mod parent_group_req_obj;
-pub use self::parent_group_req_obj::ParentGroupReqObj;
-pub mod parent_group_req_obj2;
-pub use self::parent_group_req_obj2::ParentGroupReqObj2;
-pub mod request_password_reset_request;
-pub use self::request_password_reset_request::RequestPasswordResetRequest;
-pub mod reset_password_request;
-pub use self::reset_password_request::ResetPasswordRequest;
-pub mod revoke;
-pub use self::revoke::Revoke;
-pub mod role;
-pub use self::role::Role;
-pub mod role_actions_obj;
-pub use self::role_actions_obj::RoleActionsObj;
-pub mod role_members_obj;
-pub use self::role_members_obj::RoleMembersObj;
-pub mod roles_page;
-pub use self::roles_page::RolesPage;
-pub mod sen_ml_record;
-pub use self::sen_ml_record::SenMlRecord;
-pub mod send_invitation_req_obj;
-pub use self::send_invitation_req_obj::SendInvitationReqObj;
-pub mod serial;
-pub use self::serial::Serial;
-pub mod serials_page;
-pub use self::serials_page::SerialsPage;
-pub mod state;
-pub use self::state::State;
-pub mod state2;
-pub use self::state2::State2;
-pub mod states_page;
-pub use self::states_page::StatesPage;
-pub mod subscription;
-pub use self::subscription::Subscription;
-pub mod twin_req_obj;
-pub use self::twin_req_obj::TwinReqObj;
-pub mod twin_res_obj;
-pub use self::twin_res_obj::TwinResObj;
-pub mod twins_page;
-pub use self::twins_page::TwinsPage;
-pub mod update_config_certs_request;
-pub use self::update_config_certs_request::UpdateConfigCertsRequest;
-pub mod update_config_connections_request;
-pub use self::update_config_connections_request::UpdateConfigConnectionsRequest;
-pub mod update_config_request;
-pub use self::update_config_request::UpdateConfigRequest;
-pub mod update_config_state_request;
-pub use self::update_config_state_request::UpdateConfigStateRequest;
-pub mod update_role_obj;
-pub use self::update_role_obj::UpdateRoleObj;
+pub use self::journal::{
+    Journal,
+    JournalPage
+};
+
+pub mod notifiers;
+pub use self::notifiers::{
+    Subscription,
+    CreateSubscription
+};
+
+pub mod provisions;
+pub use self::provisions::DomainIdMappingPostRequest;
+
+pub mod readers;
+pub use self::readers::{
+    MessagesPage,
+    MessagesPageMessagesInner
+};
+
+pub mod shared;
+pub use self::shared::{
+    AvailableActionsObj,
+    ConfigChannelsInner,
+    CreateRoleObj,
+    Error,
+    HealthInfo,
+    Status,
+    HealthRes,
+    Key,
+    IssueKeyRequest,
+    Members,
+    MembersCredentials,
+    MembersPage,
+    NewRole,
+    Page,
+    ParentGroupReqObj,
+    Role,
+    RoleMembersObj,
+    RoleActionsObj,
+    RolesPage,
+    Serial,
+    SerialsPage,
+    SenMlRecord,
+    State,
+    StatesPage,
+    UpdateRoleObj
+};
+
+pub mod twins;
+pub use self::twins::{
+    TwinReqObj,
+    State2,
+    TwinResObj,
+    TwinsPage,
+    Attribute,
+    Definition
+};
+
 pub mod user;
-pub use self::user::User;
-pub mod user_credentials;
-pub use self::user_credentials::UserCredentials;
-pub mod user_profile_picture;
-pub use self::user_profile_picture::UserProfilePicture;
-pub mod user_req_obj;
-pub use self::user_req_obj::UserReqObj;
-pub mod user_req_obj_credentials;
-pub use self::user_req_obj_credentials::UserReqObjCredentials;
-pub mod user_role;
-pub use self::user_role::UserRole;
-pub mod user_secret;
-pub use self::user_secret::UserSecret;
-pub mod user_tags;
-pub use self::user_tags::UserTags;
-pub mod user_update;
-pub use self::user_update::UserUpdate;
-pub mod username;
-pub use self::username::Username;
-pub mod users_page;
-pub use self::users_page::UsersPage;
+pub use self::user::{
+    User,
+    UserCredentials,
+    UserProfilePicture,
+    UserReqObjCredentials,
+    UserReqObj,
+    UserRole,
+    RoleType,
+    UserSecret,
+    UserTags,
+    UserUpdate,
+    UsersPage,
+    AssignReqObj,
+    Username,
+    AssignUserReqObj,
+    Email,
+    IssueToken200Response,
+    RequestPasswordResetRequest,
+    ResetPasswordRequest
+};
+

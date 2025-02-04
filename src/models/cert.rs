@@ -33,6 +33,65 @@ pub struct Cert {
     pub expire: Option<String>,
 }
 
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct CertsPage {
+    #[serde(rename = "certs", skip_serializing_if = "Option::is_none")]
+    pub certs: Option<Vec<crate::models::Cert>>,
+    /// Total number of items.
+    #[serde(rename = "total", skip_serializing_if = "Option::is_none")]
+    pub total: Option<i32>,
+    /// Number of items to skip during retrieval.
+    #[serde(rename = "offset", skip_serializing_if = "Option::is_none")]
+    pub offset: Option<i32>,
+    /// Maximum number of items to return in one page.
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct CreateCertRequest {
+    #[serde(rename = "client_id")]
+    pub client_id: uuid::Uuid,
+    #[serde(rename = "ttl")]
+    pub ttl: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct Revoke {
+    /// Certificate revocation time
+    #[serde(rename = "revocation_time", skip_serializing_if = "Option::is_none")]
+    pub revocation_time: Option<String>,
+}
+
+impl Revoke {
+    pub fn new() -> Revoke {
+        Revoke {
+            revocation_time: None,
+        }
+    }
+}
+
+
+impl CreateCertRequest {
+    pub fn new(client_id: uuid::Uuid, ttl: String) -> CreateCertRequest {
+        CreateCertRequest {
+            client_id,
+            ttl,
+        }
+    }
+}
+
+impl CertsPage {
+    pub fn new() -> CertsPage {
+        CertsPage {
+            certs: None,
+            total: None,
+            offset: None,
+            limit: None,
+        }
+    }
+}
+
 impl Cert {
     pub fn new() -> Cert {
         Cert {
