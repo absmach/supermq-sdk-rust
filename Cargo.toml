@@ -1,0 +1,21 @@
+[package]
+name = "sdk-rust"
+version = "0.15.1"
+authors = ["info@abstractmachines.fr"]
+description = "This is the SuperMQ Combined Service based on the OpenAPI 3.0 specification.  It is the HTTP API for managing SuperMQ. You can now help us improve the API whether it's by making changes to the definition itself or to the code. Some useful links: - [The SuperMQ repository](https://github.com/absmach/supermq) "
+license = "Apache 2.0"
+edition = "2018"
+
+[dependencies]
+serde = "^1.0"
+serde_derive = "^1.0"
+serde_json = "^1.0"
+url = "^2.2"
+uuid = { version = "^1.0", features = ["serde"] }
+tokio = { version = "1", features = ["full"] }
+
+
+[dependencies.reqwest]
+version = "^0.11"
+features = ["json", "multipart"]
+

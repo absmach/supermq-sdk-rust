@@ -23,3 +23,9 @@ go.work.sum
 
 # env file
 .env
+
+# Ignore Zone.Identifier files
+*:Zone.Identifier
+
+# Ignore the target folder where build artifacts are stored
+target/
